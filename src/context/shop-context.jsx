@@ -13,6 +13,7 @@ const getDefaultCart = () => {
 
 const ShopContextProvider = (props) => {
     const [cartItems, setCartItems] = useState(getDefaultCart());
+    const [popup, setPopup] = useState(false);
 
     const getTotalCartAmount = () => {
         let totalAmount = 0;
@@ -25,8 +26,21 @@ const ShopContextProvider = (props) => {
         return totalAmount;
     }
 
+    const openPopup = () => {
+        let timeout = null;
+        if (timeout !== null) {
+            clearTimeout(timeout);
+        }
+        setPopup(true);
+
+        timeout = setTimeout(() => {
+            setPopup(false);
+        }, 3000)
+    }
+
     const addToCart = (itemId) => {
-        setCartItems((prev) => ({...prev, [itemId]: prev[itemId] + 1}))
+        setCartItems((prev) => ({...prev, [itemId]: prev[itemId] + 1}));
+        openPopup();
     }
 
     const removeFromCart = (itemId) => {
@@ -42,7 +56,8 @@ const ShopContextProvider = (props) => {
         addToCart, 
         removeFromCart, 
         updateCartItemCount, 
-        getTotalCartAmount
+        getTotalCartAmount,
+        popup
     };
 
     return (
