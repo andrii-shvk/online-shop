@@ -1,0 +1,1 @@
+export { ShopAsync as Shop } from "./ui/shop.async";
